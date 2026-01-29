@@ -5,9 +5,9 @@
       <div class="nav-container">
         <router-link to="/" class="logo">
           <img src="/منصة البصائر التعليمية.png" alt="بصائر">
-          <span class="logo-text">بصائر <span class="logo-highlight">التعليمية</span></span>
+          <!-- <span class="logo-text">بصائر <span class="logo-highlight">التعليمية</span></span> -->
         </router-link>
-        
+
         <ul class="nav-menu">
           <li><router-link to="/" class="nav-link"><i class="fas fa-home"></i> الرئيسية</router-link></li>
           <li><router-link to="/map" class="nav-link active"><i class="fas fa-map"></i> خريطة التعلم</router-link></li>
@@ -20,7 +20,7 @@
       <div class="map-header">
         <h1 class="map-title">خريطة التعلم التفاعلية</h1>
         <p class="map-subtitle">اختر المستوى التالي في رحلتك التعليمية</p>
-        
+
         <!-- User Progress -->
         <div class="user-progress">
           <div class="progress-info">
@@ -35,39 +35,29 @@
 
       <div class="learning-path">
         <div class="path-line"></div>
-        
+
         <!-- Phases -->
-        <div 
-          v-for="phase in curriculumData.kidsPath" 
-          :key="phase.id"
-          class="phase"
-        >
+        <div v-for="phase in curriculumData.kidsPath" :key="phase.id" class="phase">
           <div class="phase-header">
             <h2 class="phase-title">{{ phase.title }}</h2>
             <p class="phase-subtitle">{{ phase.description }} • {{ phase.ageRange }}</p>
           </div>
-          
+
           <div class="levels-grid">
-            <div 
-              v-for="level in phase.levels" 
-              :key="level.id"
-              class="level-node"
-              :class="{
-                'completed': isLevelCompleted(level.id),
-                'current': isCurrentLevel(level.id),
-                'locked': isLevelLocked(level.id)
-              }"
-              @click="selectLevel(level)"
-            >
+            <div v-for="level in phase.levels" :key="level.id" class="level-node" :class="{
+              'completed': isLevelCompleted(level.id),
+              'current': isCurrentLevel(level.id),
+              'locked': isLevelLocked(level.id)
+            }" @click="selectLevel(level)">
               <div class="level-number">{{ level.levelNumber }}</div>
-              
+
               <div class="level-icon">
                 <i :class="getLevelIcon(level.pillar)"></i>
               </div>
-              
+
               <h3 class="level-title">{{ level.title }}</h3>
               <p class="level-category">{{ level.category }}</p>
-              
+
               <div class="level-stats">
                 <div class="stat">
                   <span class="stat-value">{{ level.xpReward }}</span>
@@ -78,16 +68,12 @@
                   <span class="stat-label">وقت</span>
                 </div>
               </div>
-              
+
               <div class="stars">
-                <i 
-                  v-for="star in level.starsAvailable" 
-                  :key="star"
-                  class="fas fa-star star"
-                  :class="{ 'filled': getStarStatus(level.id, star) }"
-                ></i>
+                <i v-for="star in level.starsAvailable" :key="star" class="fas fa-star star"
+                  :class="{ 'filled': getStarStatus(level.id, star) }"></i>
               </div>
-              
+
               <!-- Lock indicator for locked levels -->
               <div v-if="isLevelLocked(level.id)" class="lock-overlay">
                 <i class="fas fa-lock"></i>
@@ -105,12 +91,12 @@
         <button class="close-modal" @click="closeModal">
           <i class="fas fa-times"></i>
         </button>
-        
+
         <div class="modal-header">
           <h2>{{ selectedLevel.title }}</h2>
           <p>{{ selectedLevel.description }}</p>
         </div>
-        
+
         <div class="modal-body">
           <div class="level-details">
             <div class="detail-item">
@@ -130,7 +116,7 @@
               <span>{{ selectedLevel.category }}</span>
             </div>
           </div>
-          
+
           <div v-if="selectedLevel.content" class="content-preview">
             <h3>محتوى الدرس:</h3>
             <ul>
@@ -153,31 +139,20 @@
             </ul>
           </div>
         </div>
-        
+
         <div class="modal-actions">
-          <button 
-            v-if="!isLevelLocked(selectedLevel.id)"
-            class="btn btn-primary"
-            @click="startLesson(selectedLevel)"
-          >
+          <button v-if="!isLevelLocked(selectedLevel.id)" class="btn btn-primary" @click="startLesson(selectedLevel)">
             <i class="fas fa-play"></i>
             ابدأ الدرس
           </button>
-          
-          <button 
-            v-if="isLevelCompleted(selectedLevel.id)"
-            class="btn btn-secondary"
-            @click="startLesson(selectedLevel)"
-          >
+
+          <button v-if="isLevelCompleted(selectedLevel.id)" class="btn btn-secondary"
+            @click="startLesson(selectedLevel)">
             <i class="fas fa-redo"></i>
             أعد الدرس
           </button>
-          
-          <button 
-            v-if="isLevelLocked(selectedLevel.id)"
-            class="btn btn-disabled"
-            disabled
-          >
+
+          <button v-if="isLevelLocked(selectedLevel.id)" class="btn btn-disabled" disabled>
             <i class="fas fa-lock"></i>
             مقفول
           </button>
@@ -226,7 +201,7 @@ const isCurrentLevel = (levelId: number) => {
 const isLevelLocked = (levelId: number) => {
   // First level is always unlocked
   if (levelId === 1) return false
-  
+
   // Check if previous level is completed
   const previousLevel = levelId - 1
   return !userProgress.value.completedLevels.includes(previousLevel)

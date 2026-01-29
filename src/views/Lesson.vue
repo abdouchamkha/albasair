@@ -5,9 +5,9 @@
       <div class="nav-container">
         <router-link to="/" class="logo">
           <img src="/منصة البصائر التعليمية.png" alt="بصائر">
-          <span class="logo-text">بصائر <span class="logo-highlight">التعليمية</span></span>
+          <!-- <span class="logo-text">بصائر <span class="logo-highlight">التعليمية</span></span> -->
         </router-link>
-        
+
         <ul class="nav-menu">
           <li><router-link to="/" class="nav-link"><i class="fas fa-home"></i> الرئيسية</router-link></li>
           <li><router-link to="/map" class="nav-link"><i class="fas fa-map"></i> خريطة التعلم</router-link></li>
@@ -28,10 +28,10 @@
             <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
           </div>
         </div>
-        
+
         <h1 class="lesson-title">{{ level?.title }}</h1>
         <p class="lesson-category">{{ level?.category }}</p>
-        
+
         <div class="lesson-stats">
           <div class="stat">
             <i class="fas fa-trophy"></i>
@@ -54,7 +54,7 @@
         <div v-if="currentStep === 0" class="content-section">
           <h2>مرحباً في درس: {{ level?.title }}</h2>
           <p>{{ level?.description }}</p>
-          
+
           <div v-if="level?.content?.objectives" class="objectives">
             <h3>أهداف التعلم:</h3>
             <ul>
@@ -63,7 +63,7 @@
               </li>
             </ul>
           </div>
-          
+
           <div class="lesson-actions">
             <button @click="nextStep" class="btn btn-primary">
               <i class="fas fa-play"></i>
@@ -82,15 +82,8 @@
                 <h4>رتب خطوات الوضوء الصحيحة:</h4>
                 <div class="drag-drop-game">
                   <div class="steps-container">
-                    <div 
-                      v-for="(step, index) in wuduSteps" 
-                      :key="index"
-                      class="step-item"
-                      draggable="true"
-                      @dragstart="dragStart($event, index)"
-                      @dragover.prevent
-                      @drop="drop($event, index)"
-                    >
+                    <div v-for="(step, index) in wuduSteps" :key="index" class="step-item" draggable="true"
+                      @dragstart="dragStart($event, index)" @dragover.prevent @drop="drop($event, index)">
                       <i class="fas fa-grip-vertical"></i>
                       <span>{{ step }}</span>
                     </div>
@@ -108,11 +101,7 @@
           <div v-else-if="level?.type === 'story_lesson'" class="story-container">
             <h3>قصة تفاعلية: {{ level?.title }}</h3>
             <div v-if="level?.content?.chapters" class="story-chapters">
-              <div 
-                v-for="(chapter, index) in level.content.chapters" 
-                :key="index"
-                class="chapter"
-              >
+              <div v-for="(chapter, index) in level.content.chapters" :key="index" class="chapter">
                 <h4>{{ chapter.title }}</h4>
                 <p>{{ chapter.content }}</p>
                 <div class="lesson-box">
@@ -126,19 +115,11 @@
           <div v-else-if="level?.type === 'audio_lesson'" class="audio-container">
             <h3>أذكار يومية</h3>
             <div v-if="level?.content?.audioTracks" class="audio-tracks">
-              <div 
-                v-for="track in level.content.audioTracks" 
-                :key="track.id"
-                class="audio-track"
-              >
+              <div v-for="track in level.content.audioTracks" :key="track.id" class="audio-track">
                 <h4>{{ track.title }}</h4>
                 <p>المدة: {{ track.duration }}</p>
                 <div class="athkar-list">
-                  <div 
-                    v-for="athkar in track.athkar" 
-                    :key="athkar.text"
-                    class="athkar-item"
-                  >
+                  <div v-for="athkar in track.athkar" :key="athkar.text" class="athkar-item">
                     <p class="athkar-text">{{ athkar.text }}</p>
                     <p class="repeat-info">كرر {{ athkar.repeat }} مرة</p>
                   </div>
@@ -151,11 +132,7 @@
           <div v-else-if="level?.type === 'video_task'" class="video-container">
             <h3>مهمة فيديو: {{ level?.title }}</h3>
             <div v-if="level?.content?.episodes" class="episodes">
-              <div 
-                v-for="episode in level.content.episodes" 
-                :key="episode.title"
-                class="episode"
-              >
+              <div v-for="episode in level.content.episodes" :key="episode.title" class="episode">
                 <h4>{{ episode.title }}</h4>
                 <p>{{ episode.description }}</p>
                 <div class="tasks-list">
@@ -166,20 +143,12 @@
                 </div>
               </div>
             </div>
-            
+
             <div v-if="level?.content?.taskChecklist" class="task-checklist">
               <h4>قائمة المهام:</h4>
-              <div 
-                v-for="task in level.content.taskChecklist" 
-                :key="task.id"
-                class="task-item"
-              >
+              <div v-for="task in level.content.taskChecklist" :key="task.id" class="task-item">
                 <label class="checkbox">
-                  <input 
-                    type="checkbox" 
-                    v-model="completedTasks" 
-                    :value="task.id"
-                  >
+                  <input type="checkbox" v-model="completedTasks" :value="task.id">
                   <span class="checkmark"></span>
                   <span>{{ task.label }} ({{ task.points }} نقطة)</span>
                 </label>
@@ -191,20 +160,12 @@
           <div v-else-if="level?.type === 'interactive_story'" class="interactive-story">
             <h3>قصة تفاعلية: {{ level?.title }}</h3>
             <div v-if="level?.content?.stories" class="stories">
-              <div 
-                v-for="story in level.content.stories" 
-                :key="story.title"
-                class="story-scenario"
-              >
+              <div v-for="story in level.content.stories" :key="story.title" class="story-scenario">
                 <h4>{{ story.title }}</h4>
                 <p class="scenario">{{ story.scenario }}</p>
                 <div class="choices">
-                  <button 
-                    v-for="choice in story.choices" 
-                    :key="choice.text"
-                    class="choice-btn"
-                    @click="makeChoice(choice)"
-                  >
+                  <button v-for="choice in story.choices" :key="choice.text" class="choice-btn"
+                    @click="makeChoice(choice)">
                     {{ choice.text }}
                   </button>
                 </div>
@@ -231,26 +192,14 @@
         <div v-else-if="currentStep === totalSteps - 1" class="content-section">
           <h2>اختبار الدرس</h2>
           <p>أجب عن الأسئلة التالية للتأكد من فهمك للدرس:</p>
-          
+
           <div v-if="level?.quiz" class="quiz-container">
-            <div 
-              v-for="(question, qIndex) in level.quiz" 
-              :key="question.id"
-              class="question-item"
-            >
+            <div v-for="(question, qIndex) in level.quiz" :key="question.id" class="question-item">
               <h3>{{ qIndex + 1 }}. {{ question.text }}</h3>
               <div class="options">
-                <label 
-                  v-for="option in question.options" 
-                  :key="option"
-                  class="option-label"
-                >
-                  <input 
-                    type="radio" 
-                    :name="`question-${question.id}`"
-                    :value="option"
-                    v-model="quizAnswers[question.id]"
-                  >
+                <label v-for="option in question.options" :key="option" class="option-label">
+                  <input type="radio" :name="`question-${question.id}`" :value="option"
+                    v-model="quizAnswers[question.id]">
                   <span class="option-text">{{ option }}</span>
                 </label>
               </div>
@@ -259,7 +208,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="lesson-actions">
             <button @click="previousStep" class="btn btn-secondary">
               <i class="fas fa-arrow-right"></i>
@@ -286,16 +235,12 @@
                 <span>حصلت على {{ earnedStars }} من {{ level?.starsAvailable }} نجوم</span>
               </div>
               <div class="stars-display">
-                <i 
-                  v-for="star in level?.starsAvailable" 
-                  :key="star"
-                  class="fas fa-star star"
-                  :class="{ 'filled': star <= earnedStars }"
-                ></i>
+                <i v-for="star in level?.starsAvailable" :key="star" class="fas fa-star star"
+                  :class="{ 'filled': star <= earnedStars }"></i>
               </div>
             </div>
           </div>
-          
+
           <div class="lesson-actions">
             <router-link to="/map" class="btn btn-secondary">
               <i class="fas fa-map"></i>
@@ -350,7 +295,7 @@ const nextLevelId = computed(() => {
 // Game state
 const wuduSteps = ref([
   "غسل اليدين",
-  "المضمضة", 
+  "المضمضة",
   "الاستنشاق",
   "غسل الوجه",
   "غسل اليدين للمرفقين",
@@ -391,7 +336,7 @@ const dragStart = (event: DragEvent, index: number) => {
 const drop = (event: DragEvent, dropIndex: number) => {
   event.preventDefault()
   const dragIndex = parseInt(event.dataTransfer?.getData('text/plain') || '0')
-  
+
   const draggedItem = wuduSteps.value[dragIndex]
   wuduSteps.value.splice(dragIndex, 1)
   wuduSteps.value.splice(dropIndex, 0, draggedItem)
@@ -401,15 +346,15 @@ const checkWuduOrder = () => {
   const correctOrder = [
     "غسل اليدين",
     "المضمضة",
-    "الاستنشاق", 
+    "الاستنشاق",
     "غسل الوجه",
     "غسل اليدين للمرفقين",
     "مسح الرأس",
     "غسل القدمين"
   ]
-  
+
   const isCorrect = wuduSteps.value.every((step, index) => step === correctOrder[index])
-  
+
   if (isCorrect) {
     wuduFeedback.value = {
       type: 'success',
@@ -431,13 +376,13 @@ const makeChoice = (choice: { result: string; feedback: string }) => {
 // Quiz methods
 const submitQuiz = () => {
   if (!level.value?.quiz) return
-  
+
   let correctAnswers = 0
-  
+
   level.value.quiz.forEach(question => {
     const userAnswer = quizAnswers.value[question.id]
     const isCorrect = userAnswer === question.correctAnswer
-    
+
     if (isCorrect) {
       correctAnswers++
       quizFeedback.value[question.id] = {
@@ -451,7 +396,7 @@ const submitQuiz = () => {
       }
     }
   })
-  
+
   // Calculate stars based on performance
   const percentage = (correctAnswers / level.value.quiz.length) * 100
   if (percentage >= 80) {
@@ -461,10 +406,10 @@ const submitQuiz = () => {
   } else {
     earnedStars.value = 1
   }
-  
+
   // Save progress
   saveProgress()
-  
+
   // Move to completion step
   setTimeout(() => {
     currentStep.value = totalSteps.value
@@ -479,19 +424,19 @@ const saveProgress = () => {
     levelStars: {},
     totalPoints: 0
   }
-  
+
   // Update progress
   if (!progress.completedLevels.includes(levelId)) {
     progress.completedLevels.push(levelId)
   }
-  
+
   progress.levelStars[levelId] = Math.max(
     progress.levelStars[levelId] || 0,
     earnedStars.value
   )
-  
+
   progress.totalPoints += level.value?.xpReward || 0
-  
+
   // Save to localStorage
   localStorage.setItem('userProgress', JSON.stringify(progress))
 }
@@ -513,7 +458,11 @@ onMounted(() => {
 
 <style scoped>
 /* Additional styles for lesson components */
-.game-container, .story-container, .audio-container, .video-container, .interactive-story {
+.game-container,
+.story-container,
+.audio-container,
+.video-container,
+.interactive-story {
   background: var(--gray-light);
   border-radius: 15px;
   padding: 30px;
@@ -660,7 +609,7 @@ onMounted(() => {
   transition: var(--transition);
 }
 
-.checkbox input:checked + .checkmark {
+.checkbox input:checked+.checkmark {
   background: var(--success);
   border-color: var(--success);
 }
@@ -678,7 +627,7 @@ onMounted(() => {
   transform: rotate(45deg);
 }
 
-.checkbox input:checked + .checkmark::after {
+.checkbox input:checked+.checkmark::after {
   display: block;
 }
 
@@ -854,9 +803,11 @@ onMounted(() => {
   0% {
     transform: scale(0);
   }
+
   50% {
     transform: scale(1.3);
   }
+
   100% {
     transform: scale(1);
   }
