@@ -5,9 +5,9 @@
       <div class="nav-container">
         <a href="#" class="logo">
           <img src="/منصة البصائر التعليمية.png" alt="بصائر">
-          <span class="logo-text">بصائر <span class="logo-highlight">التعليمية</span></span>
+          <!-- <span class="logo-text">بصائر <span class="logo-highlight">التعليمية</span></span> -->
         </a>
-        
+
         <ul class="nav-menu">
           <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a></li>
           <li><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> عن المنصة</a></li>
@@ -31,7 +31,7 @@
           <div class="shape shape-5"></div>
         </div>
       </div>
-      
+
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
@@ -39,11 +39,11 @@
             <span class="title-line highlight">ممتعة وتفاعلية</span>
             <span class="title-line">تناسب عصرك</span>
           </h1>
-          
+
           <p class="hero-subtitle">
             منصة تعليمية شاملة تجمع بين العلم والدين والأكاديميا في بيئة آمنة ومشوقة
           </p>
-          
+
           <div class="hero-actions">
             <router-link to="/map" class="btn btn-gradient">
               <i class="fas fa-rocket"></i>
@@ -73,7 +73,7 @@
             اختر مسارك التعليمي من بين ثلاثة أقسام رئيسية مصممة خصيصاً لك
           </p>
         </div>
-        
+
         <div class="sections-grid">
           <!-- القسم الديني -->
           <div class="section-card" data-category="religious">
@@ -83,10 +83,10 @@
               </div>
               <div class="category-badge">ديني</div>
             </div>
-            
+
             <h3 class="card-title">المسار الديني</h3>
             <p class="card-desc">تعلم وتعمق في علوم الدين بطريقة عصرية</p>
-            
+
             <div class="card-features">
               <div class="feature">
                 <i class="fas fa-check-circle"></i>
@@ -113,13 +113,13 @@
                 <span>فقه العبادات</span>
               </div>
             </div>
-            
+
             <router-link to="/map" class="card-btn">
               <span>انضم للمسار</span>
               <i class="fas fa-arrow-left"></i>
             </router-link>
           </div>
-          
+
           <!-- القسم العلمي -->
           <div class="section-card featured" data-category="scientific">
             <div class="card-header">
@@ -128,10 +128,10 @@
               </div>
               <div class="category-badge">علمي</div>
             </div>
-            
+
             <h3 class="card-title">المسار العلمي</h3>
             <p class="card-desc">طور مهاراتك التقنية لمستقبل مشرق</p>
-            
+
             <div class="card-features">
               <div class="feature">
                 <i class="fas fa-check-circle"></i>
@@ -158,13 +158,13 @@
                 <span>الابتكار والإبداع</span>
               </div>
             </div>
-            
+
             <router-link to="/map" class="card-btn">
               <span>ابدأ التعلم</span>
               <i class="fas fa-arrow-left"></i>
             </router-link>
           </div>
-          
+
           <!-- القسم الأكاديمي -->
           <div class="section-card" data-category="academic">
             <div class="card-header">
@@ -173,10 +173,10 @@
               </div>
               <div class="category-badge">أكاديمي</div>
             </div>
-            
+
             <h3 class="card-title">المسار الأكاديمي</h3>
             <p class="card-desc">حسّن مستواك الدراسي وكن متميزاً</p>
-            
+
             <div class="card-features">
               <div class="feature">
                 <i class="fas fa-check-circle"></i>
@@ -203,7 +203,7 @@
                 <span>التاريخ والجغرافيا</span>
               </div>
             </div>
-            
+
             <router-link to="/map" class="card-btn">
               <span>حسّن مستواك</span>
               <i class="fas fa-arrow-left"></i>
@@ -225,7 +225,7 @@ const isScrolled = ref(false)
 onMounted(() => {
   // Initialize particles
   initParticles()
-  
+
   // Handle scroll
   window.addEventListener('scroll', () => {
     isScrolled.value = window.scrollY > 50
@@ -235,30 +235,30 @@ onMounted(() => {
 const initParticles = () => {
   const container = document.getElementById('particles')
   if (!container) return
-  
+
   const particleCount = 50
-  
+
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('div')
     particle.className = 'particle'
-    
+
     const size = Math.random() * 5 + 2
     particle.style.width = `${size}px`
     particle.style.height = `${size}px`
     particle.style.left = `${Math.random() * 100}%`
     particle.style.top = `${Math.random() * 100}%`
-    
+
     const colors = ['#4361ee', '#3a0ca3', '#7209b7', '#4cc9f0', '#f72585']
     particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]
     particle.style.opacity = Math.random() * 0.3 + 0.1
-    
+
     const duration = Math.random() * 20 + 10
     const delay = Math.random() * 5
     particle.style.animation = `floatParticle ${duration}s linear ${delay}s infinite`
-    
+
     container.appendChild(particle)
   }
-  
+
   // Add particle animation styles
   const style = document.createElement('style')
   style.textContent = `
@@ -299,10 +299,10 @@ const quickLogin = () => {
     points: 250,
     level: 3
   }
-  
+
   localStorage.setItem('isLoggedIn', 'true')
   localStorage.setItem('currentUser', JSON.stringify(demoUser))
-  
+
   // Navigate to learning map
   router.push('/map')
 }
